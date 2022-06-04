@@ -1,0 +1,14 @@
+find . -name *.tex
+
+grep -n 'tomatos' file1.tex file2.tex
+
+grep -v pepper *txt | wc -l
+
+find . -name "*.txt" -exec grep -H Grade {} \;
+
+cat filenamehere.fileextensionhere | tr [A-Z] [a-z]
+
+sort -r --key=1.2,1.6 filenamehere.fileextensionhere
+
+cut -d, -f3 filenamehere.fileextensionhere | sort
+
