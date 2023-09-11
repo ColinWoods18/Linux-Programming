@@ -1,0 +1,70 @@
+#!/bin/sh
+
+# Colin Woods
+# Kim Buckner
+# Jan, 03, 2021
+# COSC 3750
+
+#                                    HOMEWORK 2
+
+for var in $*
+do
+FULL=$(file -b $var)  
+DIR="directory"
+ASC="ASCII text"
+if [[ -x "$var" ]]
+then
+case $FULL in
+$DIR)
+echo "Modify: $var, is a directory"
+;;
+*)
+esac
+elif file -b $var | grep -q 'executable';
+then
+echo "Modify: $var, cannot edit executables."
+else
+if [[ -w "$var" ]]
+then
+case $FULL in 
+$DIR)
+echo "Modify: $var, is a directory."
+;;
+$ASC)
+GRP=$(grep -c "Gradez" $var)
+ed -s -l $var <<END
+a
+Modified on: $(date "+%A, %b %d, %Y: %H%M")
+Modified by: Colin Woods
+.
+1m2
+#,s/Gradez/Grades/g
+w $var
+q
+END
+#
+# I've been on a wild goose hunt trying to figure out how the fuck to supress the '?' 
+# error message. By running ed twice and using grep to check for "Gradez" first
+# I cheated my way around it but I'm still really curious how it can be done because I 
+# read the info page for ed at least ten times over trying to use -l and -s but to no avail
+# but hey! at least no '?' are gonna show up when you run the code on files where Grades is
+# spelled correctly.
+#
+if [ $GRP -gt 0 ]
+then
+ed -s $var <<END
+,s/Gradez/Grades/g
+w $var
+q
+END
+fi
+;;
+*)
+echo "Modify: $var, filetype not supported."
+;;
+esac
+else 
+echo "File not writable."
+fi
+fi
+done
