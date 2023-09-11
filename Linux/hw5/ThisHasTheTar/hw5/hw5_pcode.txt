@@ -1,0 +1,23 @@
+Colin Woods
+Kim Buckner
+COSC 3750
+3/5/2022
+HW5_pcode
+
+First set booleans for -n and -h commands. Then parse through the argument to either set them to true or false. Once the commands have been set, then if there were no arguments, print all of the items in the current working directory.
+
+Open and read the directory, and gather all of the information necessary for our output statement. 
+
+Check if the file is a link, dir or reg and if it is a link use lstat instead of stat to gather info. Write out the access string based on permissions. Print out an error if it's not any of those types.
+
+Gather the groupname or GID and the owner name or UID, depending on whether n is true or false. 
+
+Set a string with the size of the file either as the full number of bytes or the abbreviations if h is true.
+
+Retrieve time information and calculate the time difference between when the file was last modified and the current date and time. If it's more than 180 days, change the time format.
+
+Print the information in the proper formatting.
+
+For individual files repeat the process of information gathering, only just do it for the indivual file or link instead of the whole directory.
+
+If -n or -h commands are entered but no arguments after the commands, print the working directory and apply those commands.
